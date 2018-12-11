@@ -55,7 +55,7 @@ goto sphinx_ok
 
 :sphinx_python
 
-set SPHINXBUILD=python -m sphinx.__init__
+set SPHINXBUILD=python3 -m sphinx.__init__
 %SPHINXBUILD% 2> nul
 if errorlevel 9009 (
 	echo.
@@ -71,8 +71,10 @@ if errorlevel 9009 (
 
 :sphinx_ok
 
+echo "zhangyu"
 
 if "%1" == "html" (
+	echo "zhang "
 	%SPHINXBUILD% -b html %ALLSPHINXOPTS% %BUILDDIR%/html
 	if errorlevel 1 exit /b 1
 	echo.
