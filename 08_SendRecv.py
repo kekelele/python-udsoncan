@@ -58,7 +58,11 @@ while True:
     if ret is 0:
         msg.show()
         if msg.Data[4] == 0x10 and msg.Data[5] == 0x03:
-            msg_send.setIDandData(0x241, [0x50,0x03] )
+            msg_send.setIDandData(0x7e8, [0x50,0x03] )
+            if J2534.ptWtiteMsgs(ch1, msg, 1, 100)  == 0:
+                msg_send.show()
+        elif msg.Data[4] == 0x11 and msg.Data[5] == 0x01:
+            msg_send.setIDandData(0x7e8, [0x51,0x01] )
             if J2534.ptWtiteMsgs(ch1, msg, 1, 100)  == 0:
                 msg_send.show()
 
