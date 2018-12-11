@@ -57,7 +57,7 @@ while True:
     ret = J2534.ptReadMsgs(ch1, msg, 1, 100)
     if ret is 0:
         msg.show()
-        if msg.Data[5] == 0x10 and msg.Data[5] == 0x03:
+        if msg.Data[4] == 0x10 and msg.Data[5] == 0x03:
             msg_send.setIDandData(0x241, [2,0x50,0x03,0,0,0,0,0,0] )
             ret = J2534.ptWtiteMsgs(ch1, msg, 1, 100)
 

@@ -51,7 +51,6 @@ class J2534Connect(BaseConnection):
     
     def specific_send(self, payload):
         data = [i for i in bytes(payload)]
-        data = [len(data)] + data
         msg = J2534.ptTxMsg(ProtocolID.ISO15765, 32)
         msg.setIDandData(SEND_ID, data )
         ret = J2534.ptWtiteMsgs(self.channel, msg, 1, 100)
@@ -69,11 +68,15 @@ class J2534Connect(BaseConnection):
 
         ret, fiterid = J2534.ptStartMsgFilter(self.channel, FilterType.FLOW_CONTROL_FILTER,
                                             maskMsg, patternMsg, flowcontrolMsg)
-
+        
         ret = J2534.ptReadMsgs(self.channel, msg, 1, 100)
         if ret == 0:
+            msg.show()
+        ret = J2534.ptReadMsgs(self.channel, msg, 1, 100)
+        if ret == 0:
+            msg.show()
             size = msg.Data[0]
-            return bytes(msg.Data[1:size])
+            return bytes(msg.Data[:size])
         return None
     def empty_rxqueue(self):
         pass
